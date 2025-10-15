@@ -1,0 +1,161 @@
+
+> web@0.1.0 dev
+> next dev -p 3000
+
+  ▲ Next.js 14.2.7
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 527ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1325ms (628 modules)
+(node:11541) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ GET / 200 in 1510ms
+ ✓ Compiled in 777ms (626 modules)
+ ✓ Compiled /signin in 241ms (618 modules)
+ GET / 200 in 89ms
+ GET / 200 in 299ms
+ GET / 200 in 204ms
+ GET / 200 in 112ms
+ GET / 200 in 434ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1400ms (1654 modules)
+ GET /dashboard 200 in 1642ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled /map in 434ms (1752 modules)
+ ✓ Compiled /admin/rbac in 348ms (1760 modules)
+ ✓ Compiled /admin/integrations in 139ms (1766 modules)
+ ✓ Compiled /admin/audit-reports in 232ms (1776 modules)
+ GET / 200 in 91ms
+ GET /dashboard 200 in 149ms
+ ✓ Compiled /manager/approvals in 381ms (1774 modules)
+ ○ Compiling /optimizer ...
+ ✓ Compiled /optimizer in 514ms (1804 modules)
+ ✓ Compiled /manager/simulator in 240ms (1810 modules)
+ ✓ Compiled /reports in 241ms (1816 modules)
+ ✓ Compiled /reports/production-alignment in 293ms (1822 modules)
+ GET / 200 in 296ms
+ GET /dashboard 200 in 244ms
+ GET / 200 in 74ms
+ GET /dashboard 200 in 42ms
+ ○ Compiling /yard/wagon-health ...
+ ✓ Compiled /yard/wagon-health in 679ms (1810 modules)
+ ✓ Compiled /yard/safety in 349ms (1748 modules)
+ ✓ Compiled in 308ms (895 modules)
+ ✓ Compiled in 359ms (1760 modules)
+ ✓ Compiled in 376ms (1760 modules)
+ ✓ Compiled in 438ms (1760 modules)
+ ✓ Compiled in 260ms (1760 modules)
+ ✓ Compiled in 431ms (1760 modules)
+ ✓ Compiled in 237ms (896 modules)
+ ✓ Compiled in 215ms (1760 modules)
+ ✓ Compiled in 2.3s (1760 modules)
+ ✓ Compiled in 401ms (1760 modules)
+ ✓ Compiled in 484ms (1760 modules)
+ ✓ Compiled in 365ms (1760 modules)
+ GET / 200 in 295ms
+ GET /dashboard 200 in 166ms
+ ✓ Compiled in 1173ms (1760 modules)
+ ✓ Compiled in 366ms (1760 modules)
+ GET /yard/safety 200 in 125ms
+ ✓ Compiled /yard-actions in 444ms (1752 modules)
+ GET / 200 in 129ms
+ GET /dashboard 200 in 143ms
+ GET / 200 in 52ms
+ ✓ Compiled /customer-auth in 385ms (1758 modules)
+ ✓ Compiled /customer-dashboard in 299ms (1753 modules)
+ GET /customer-dashboard 200 in 389ms
+ GET /customer-dashboard 200 in 41ms
+ ✓ Compiled /customer/dashboard in 198ms (1755 modules)
+ ✓ Compiled /customer/orders/new in 221ms (1761 modules)
+ GET /customer/orders/new 200 in 326ms
+ ✓ Compiled /customer/orders/[id] in 177ms (1767 modules)
+ GET /customer/orders/e1f3327a-bebe-4e86-b4c0-ce008cf5bff7 200 in 615ms
+ ✓ Compiled /manager/approvals in 207ms (878 modules)
+ GET / 200 in 59ms
+ GET /dashboard 200 in 119ms
+ ✓ Compiled /optimizer in 340ms (882 modules)
+ ✓ Compiled /dispatch-planner in 262ms (1781 modules)
+ ✓ Compiled /manager/simulator in 126ms (886 modules)
+ ✓ Compiled /reports in 145ms (890 modules)
+ ✓ Compiled /reports/production-alignment in 106ms (894 modules)
+ GET /manager/simulator 200 in 112ms
+ ✓ Compiled in 847ms (1257 modules)
+ GET / 200 in 308ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 575ms (867 modules)
+ GET /dashboard 200 in 771ms
+ ✓ Compiled /manager/approvals in 169ms (871 modules)
+ ✓ Compiled /optimizer in 193ms (886 modules)
+ ✓ Compiled in 550ms (1772 modules)
+ ✓ Compiled /reports in 272ms (867 modules)
+ ✓ Compiled /reports/production-alignment in 132ms (871 modules)
+ GET /manager/simulator 200 in 131ms
+ ✓ Compiled in 1156ms (1772 modules)
+ GET /optimizer 200 in 205ms
+ ✓ Compiled in 615ms (1772 modules)
+ ✓ Compiled /dispatch-planner in 194ms (867 modules)
+ ✓ Compiled /reports/production-alignment in 129ms (871 modules)
+ GET /dispatch-planner 200 in 104ms
+ ✓ Compiled in 744ms (1776 modules)
+ ✓ Compiled in 1018ms (1772 modules)
+ ✓ Compiled in 984ms (1772 modules)
+ ✓ Compiled in 666ms (1772 modules)
+ GET /optimizer 200 in 190ms
+ GET /optimizer 200 in 38ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 712ms (1772 modules)
+ ✓ Compiled in 1ms (863 modules)
+ ✓ Compiled in 0ms (863 modules)
+ ✓ Compiled in 0ms (863 modules)
+ GET /optimizer 200 in 688ms
+ ✓ Compiled in 690ms (1772 modules)
+ ✓ Compiled in 946ms (1772 modules)
+ ✓ Compiled /reports in 283ms (867 modules)
+ ✓ Compiled /reports/production-alignment in 459ms (867 modules)
+ GET /reports 200 in 365ms
+ GET / 200 in 97ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 664ms (867 modules)
+ GET /dashboard 200 in 932ms
+ ✓ Compiled /map in 395ms (920 modules)
+ ✓ Compiled /optimizer in 381ms (935 modules)
+ GET /reports 200 in 81ms
+ ✓ Compiled in 2.5s (1782 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /reports 200 in 216ms
+ ✓ Compiled in 786ms (909 modules)
+ ✓ Compiled in 1428ms (909 modules)
+ ✓ Compiled /reports/production-alignment in 353ms (877 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 1344ms (1771 modules)
+ GET /reports/production-alignment 200 in 419ms
+ ✓ Compiled /map in 450ms (915 modules)
+ ✓ Compiled /manager/approvals in 477ms (401 modules)
+ ✓ Compiled /optimizer in 457ms (920 modules)
+ ✓ Compiled /dispatch-planner in 242ms (924 modules)
+ ✓ Compiled /manager/simulator in 207ms (928 modules)
+ GET / 200 in 112ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 521ms (916 modules)
+ GET /dashboard 200 in 773ms
+ ✓ Compiled /yard/wagon-health in 198ms (917 modules)
+ ✓ Compiled /yard/safety in 107ms (921 modules)
+ ✓ Compiled /yard-actions in 83ms (925 modules)
+ GET / 200 in 135ms
+ GET /dashboard 200 in 104ms
+ GET / 200 in 60ms
+ GET /dashboard 200 in 32ms
+ GET /dashboard 200 in 337ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 862ms (1762 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 970ms
+ GET /dashboard 200 in 101ms
+ ✓ Compiled /map in 246ms (917 modules)
+ ✓ Compiled /yard-actions in 70ms (921 modules)
+ ✓ Compiled in 2.1s (1822 modules)
+ ✓ Compiled in 7.2s (1822 modules)
+ ✓ Compiled in 5.1s (909 modules)
+[?25h

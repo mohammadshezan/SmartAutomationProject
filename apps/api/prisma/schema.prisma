@@ -1,0 +1,358 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // NOTE: Previously misused env() with literal connection string. Using direct string now.
+  url       = "postgresql://postgres:Shiv2005%40..@db.elbiuelotvxkjjwipcmg.supabase.co:5432/postgres?sslmode=require"
+  directUrl = "postgresql://postgres:Shiv2005%40..@db.elbiuelotvxkjjwipcmg.supabase.co:5432/postgres?sslmode=require"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String?  // optional to avoid destructive change on existing rows
+  role         Role
+  name         String?
+  createdAt    DateTime @default(now())
+}
+
+enum Role {
+  admin
+  manager
+  supervisor
+  customer
+  rake_planner
+  yard
+  customer_service
+  logistics_planner
+  warehouse_manager
+  transport_coordinator
+  production_planner
+  ai_system
+}
+
+model Plant {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  yards Yard[]
+  routes Route[]
+}
+
+model Yard {
+  id      Int    @id @default(autoincrement())
+  name    String
+  lat     Float
+  lng     Float
+  plant   Plant  @relation(fields: [plantId], references: [id])
+  plantId Int
+  rakes   Rake[]
+}
+
+model Rake {
+  id        Int       @id @default(autoincrement())
+  code      String    @unique
+  rfid      String?   @unique
+  yard      Yard?     @relation(fields: [yardId], references: [id])
+  yardId    Int?
+  wagons    Wagon[]
+  dispatch  Dispatch?
+  status    RakeStatus @default(PENDING)
+  product   String?    // Dominant cargo if homogeneous
+  destination String?  // Aggregated destination / region
+  tonsPlanned Int?     // Total planned tonnage
+  createdAt  DateTime  @default(now())
+}
+
+enum RakeStatus {
+  PENDING
+  DISPATCHED
+}
+
+model Wagon {
+  id     Int   @id @default(autoincrement())
+  code   String @unique
+  rake   Rake? @relation(fields: [rakeId], references: [id])
+  rakeId Int?
+  type   String @default("general")
+  capT   Int    @default(60)
+}
+
+model Dispatch {
+  id       Int      @id @default(autoincrement())
+  rake     Rake     @relation(fields: [rakeId], references: [id])
+  rakeId   Int      @unique
+  from     String
+  to       String
+  cargo    String
+  tonnage  Int
+  ts       DateTime @default(now())
+  hash     String
+  prevHash String
+}
+
+// Routing models for plant-specific routes
+model Station {
+  id             Int             @id @default(autoincrement())
+  code           String          @unique
+  name           String
+  lat            Float
+  lng            Float
+  fromRoutes     Route[]         @relation("FromStation")
+  toRoutes       Route[]         @relation("ToStation")
+  routeStations  RouteStation[]
+}
+
+model Route {
+  id            Int             @id @default(autoincrement())
+  key           String          @unique
+  name          String
+  from          Station?        @relation("FromStation", fields: [fromId], references: [id])
+  fromId        Int?
+  to            Station?        @relation("ToStation", fields: [toId], references: [id])
+  toId          Int?
+  routeStations RouteStation[]
+  plant         Plant?          @relation(fields: [plantId], references: [id])
+  plantId       Int?
+}
+
+model RouteStation {
+  id        Int     @id @default(autoincrement())
+  route     Route   @relation(fields: [routeId], references: [id])
+  routeId   Int
+  station   Station @relation(fields: [stationId], references: [id])
+  stationId Int
+  seq       Int
+
+  @@unique([routeId, seq])
+  @@index([routeId, seq])
+}
+
+// ------------------------------
+// Customer & Orders (for portal)
+// ------------------------------
+
+model Customer {
+  customerId   String    @id @default(uuid())
+  name         String
+  company      String
+  email        String    @unique
+  phone        String
+  gstin        String?
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  orders       Order[]
+  authLogs     AuthLog[]
+}
+
+enum Priority {
+  Normal
+  Urgent
+}
+
+enum OrderStatus {
+  PENDING
+  VALIDATED      // Customer Service Exec basic validation
+  APPROVED       // Logistics Planner final confirmation (ETA committed)
+  CONSOLIDATED   // Included in daily consolidation batch
+  ALLOCATED      // Stockyard & loading point allocated
+  PLANNED        // Rake formation plan created
+  LOADING        // Physical loading started
+  DISPATCHED     // Rake departed (alias of EN_ROUTE start)
+  EN_ROUTE       // In transit
+  DELIVERED      // Delivered & receipt confirmed
+  REJECTED       // Cancelled / rejected
+}
+
+model Order {
+  orderId       String       @id @default(uuid())
+  customer      Customer     @relation(fields: [customerId], references: [customerId])
+  customerId    String
+  cargo         String
+  quantityTons  Int
+  sourcePlant   String
+  destination   String
+  priority      Priority     @default(Normal)
+  status        OrderStatus  @default(PENDING)
+  createdAt     DateTime     @default(now())
+  estimateCost  Int?
+  eta           DateTime?
+  rakeId        String?
+  history       Json?
+  stockyard     Stockyard?   @relation(fields: [stockyardId], references: [id])
+  stockyardId   Int?
+  loadingPoint  LoadingPoint? @relation(fields: [loadingPointId], references: [id])
+  loadingPointId Int?
+  allocationCost Int?        // Cost component chosen during allocation
+  allocationEmissions Int?   // Emissions estimate snapshot
+  plannedAt     DateTime?    // Timestamp when rake planning assigned
+  dispatchedAt  DateTime?    // Timestamp when dispatch occurred
+}
+
+enum LoginType {
+  password
+  otp
+}
+
+model AuthLog {
+  id          Int        @id @default(autoincrement())
+  customer    Customer   @relation(fields: [customerId], references: [customerId])
+  customerId  String
+  loginType   LoginType
+  timestamp   DateTime   @default(now())
+}
+
+enum LoadingStatus {
+  UNDER_LOADING
+  READY
+  DISPATCHED
+}
+
+model YardActivity {
+  id            Int           @id @default(autoincrement())
+  rakeId        String
+  orderId       String?
+  loadingStatus LoadingStatus @default(UNDER_LOADING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+// --------------------------------
+// CMO Allocation & Audit (optional)
+// --------------------------------
+
+enum AllocationStatus {
+  draft
+  submitted
+  approved
+  rejected
+}
+
+model Allocation {
+  id           String            @id
+  status       AllocationStatus  @default(draft)
+  payload      Json
+  createdBy    String
+  createdAt    DateTime          @default(now())
+  approvedBy   String?
+  approvedAt   DateTime?
+  rejectedBy   String?
+  rejectedAt   DateTime?
+  rejectReason String?
+
+  audits       AllocationAudit[]
+}
+
+model AllocationAudit {
+  id       Int         @id @default(autoincrement())
+  alloc    Allocation  @relation(fields: [allocId], references: [id])
+  allocId  String
+  user     String
+  action   String
+  diff     Json?
+  ts       DateTime    @default(now())
+
+  @@index([allocId, ts])
+}
+
+// ------------------------------
+// Analytics Events (optional)
+// ------------------------------
+
+model Event {
+  id     Int      @id @default(autoincrement())
+  ts     DateTime @default(now())
+  user   String
+  role   String
+  type   String
+  page   String?
+  action String?
+  meta   Json?
+
+  @@index([ts])
+  @@index([role, ts])
+}
+
+// ------------------------------
+// OTP storage (for reliable verification)
+// ------------------------------
+model OtpCode {
+  id       Int      @id @default(autoincrement())
+  email    String
+  purpose  String   @default("generic")
+  code     String
+  expAt    DateTime
+
+  @@unique([email, purpose], name: "email_purpose")
+}
+
+// Low stock reports from supervisors for manager actioning
+model LowStockReport {
+  id            Int       @id @default(autoincrement())
+  stockyardCity String
+  product       String
+  currentTons   Int?
+  thresholdTons Int?
+  requiredTons  Int?
+  reporter      String
+  createdAt     DateTime  @default(now())
+  status        LowStockReportStatus @default(OPEN)
+  ackBy         String?
+  ackAt         DateTime?
+  clearedBy     String?
+  clearedAt     DateTime?
+
+  @@index([stockyardCity])
+  @@index([product])
+  @@index([stockyardCity, product])
+}
+
+enum LowStockReportStatus {
+  OPEN
+  ACKNOWLEDGED
+  CLEARED
+}
+
+// --------------------------------
+// Primary Stockyard & Loading Data
+// (Derived from provided master dataset)
+// --------------------------------
+
+model Stockyard {
+  id               Int            @id @default(autoincrement())
+  name             String
+  warehouseLocation String
+  lat              Float
+  lng              Float
+  // Aggregated materials available at this stockyard (from its loading points)
+  materials        String[]       @default([])
+  // Aggregated total capacity across all loading points (tons)
+  totalCapacityTons Int?
+  loadingPoints    LoadingPoint[]
+  orders           Order[]
+
+  @@unique([name, warehouseLocation], name: "name_warehouseLocation")
+  @@index([name])
+  @@index([warehouseLocation])
+}
+
+model LoadingPoint {
+  id                       Int        @id @default(autoincrement())
+  loadingPointName         String
+  material                 String     // Material (सामग्री)
+  capacityTons             Int
+  loadingCostPerTonINR     Int
+  demurrageCostPerDayINR   Int
+  holdingCostPerTonPerDay  Int        // Inventory Holding Cost per ton per day (INR)
+  productId                String
+  preferredWagonType       String
+  averageWagonCapacityTons Int
+  stockyard                Stockyard  @relation(fields: [stockyardId], references: [id])
+  stockyardId              Int
+  orders                   Order[]
+
+  @@unique([stockyardId, loadingPointName, material], name: "stockyardId_loadingPointName_material")
+  @@index([material])
+  @@index([productId])
+}

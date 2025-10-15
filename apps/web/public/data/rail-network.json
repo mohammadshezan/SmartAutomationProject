@@ -1,0 +1,25 @@
+{
+  "nodes": [
+    { "id": "BKSC", "name": "Bokaro", "lat": 23.64, "lng": 86.16 },
+    { "id": "JAM", "name": "Jamshedpur", "lat": 22.8046, "lng": 86.2029 },
+    { "id": "KGP", "name": "Kharagpur", "lat": 22.346, "lng": 87.231 },
+    { "id": "BBS", "name": "Bhubaneswar", "lat": 20.2961, "lng": 85.8245 },
+    { "id": "VSKP", "name": "Visakhapatnam", "lat": 17.6868, "lng": 83.2185 },
+    { "id": "BZA", "name": "Vijayawada", "lat": 16.5062, "lng": 80.648 },
+    { "id": "MAS", "name": "Chennai", "lat": 13.0827, "lng": 80.2707 },
+    { "id": "SA", "name": "Salem", "lat": 11.6643, "lng": 78.146 },
+    { "id": "DGR", "name": "Durgapur", "lat": 23.5204, "lng": 87.3119 },
+    { "id": "CCU", "name": "Kolkata", "lat": 22.5726, "lng": 88.3639 },
+    { "id": "RPR", "name": "Raipur", "lat": 21.2514, "lng": 81.6296 },
+    { "id": "NGP", "name": "Nagpur", "lat": 21.1458, "lng": 79.0882 },
+    { "id": "ET", "name": "Itarsi", "lat": 22.607, "lng": 77.762 },
+    { "id": "NDLS", "name": "Delhi", "lat": 28.6139, "lng": 77.209 },
+    { "id": "HYB", "name": "Hyderabad", "lat": 17.385, "lng": 78.4867 }
+  ],
+  "edges": [
+    ["BKSC","JAM"], ["JAM","KGP"], ["KGP","BBS"], ["BBS","VSKP"], ["VSKP","BZA"], ["BZA","MAS"], ["MAS","SA"],
+    ["BKSC","DGR"], ["DGR","CCU"], ["CCU","KGP"],
+    ["BKSC","RPR"], ["RPR","NGP"], ["NGP","ET"], ["ET","NDLS"],
+    ["BZA","HYB"], ["HYB","NGP"], ["VSKP","HYB"]
+  ]
+}

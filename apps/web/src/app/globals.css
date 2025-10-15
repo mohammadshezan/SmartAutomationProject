@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 209 82% 12%;
+  --foreground: 0 0% 100%;
+  
+  --card: 209 82% 15%;
+  --card-foreground: 0 0% 100%;
+  
+  --popover: 209 82% 15%;
+  --popover-foreground: 0 0% 100%;
+  
+  --primary: 209 82% 45%;
+  --primary-foreground: 0 0% 100%;
+  --primary-light: 209 82% 55%;
+  --primary-dark: 209 82% 35%;
+  
+  --secondary: 209 32% 20%;
+  --secondary-foreground: 0 0% 100%;
+  
+  --muted: 209 32% 20%;
+  --muted-foreground: 215 20% 65%;
+  
+  --accent: 209 82% 35%;
+  --accent-foreground: 0 0% 100%;
+  
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 209 32% 20%;
+  --input: 209 32% 20%;
+  --ring: 209 82% 45%;
+  
+  --radius: 0.5rem;
+  
+  --gradient-primary: linear-gradient(135deg, hsl(209 82% 29%), hsl(209 82% 45%));
+  --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(220 13% 97%));
+  --shadow-elegant: 0 10px 30px -10px hsl(209 82% 29% / 0.2);
+  --shadow-glow: 0 0 40px hsl(209 82% 45% / 0.15);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 209 82% 45%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 240 4.8% 95.9%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 209 82% 45%;
+}
+
+/* Freight-guard light theme tokens (scoped) */
+.fg-theme {
+  --background: 0 0% 100%;
+  --foreground: 224 71% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 71% 4%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 71% 4%;
+  --primary: 221 83% 53%; /* indigo-600 */
+  --primary-foreground: 210 40% 98%;
+  --primary-light: 221 83% 75%;
+  --primary-dark: 221 83% 40%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 221 83% 53%;
+  --radius: 0.75rem;
+  /* Spacing scale approximations */
+  --space-0: 0;
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem;  /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem;    /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem;  /* 24px */
+  --space-8: 2rem;    /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  /* Shadow presets */
+  --shadow-elev-1: 0 1px 2px rgba(0,0,0,0.06), 0 1px 1px rgba(0,0,0,0.04);
+  --shadow-elev-2: 0 4px 10px rgba(0,0,0,0.06);
+  --shadow-elev-3: 0 10px 18px rgba(0,0,0,0.08);
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+.leaflet-container { background: #0b1220; }
+.pulse-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #10B981; box-shadow: 0 0 0 rgba(16,185,129, 0.7);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16,185,129, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(16,185,129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129, 0); }
+}
+
+/* Subtle glow/float animation for KPI cards */
+.kpi-card {
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  animation: kpiGlow 4s ease-in-out infinite;
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.15); }
+@keyframes kpiGlow {
+  0% { box-shadow: 0 0 0 rgba(16,185,129,0.0); background-color: rgba(255,255,255,0.03); }
+  50% { box-shadow: 0 0 20px rgba(16,185,129,0.12); background-color: rgba(255,255,255,0.05); }
+  100% { box-shadow: 0 0 0 rgba(16,185,129,0.0); background-color: rgba(255,255,255,0.03); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kpi-card { animation: none !important; }
+}

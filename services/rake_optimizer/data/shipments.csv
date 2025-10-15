@@ -1,0 +1,5 @@
+rake_id,cargo,loading_point,destination,wagon_count,eta,current_cost
+RAKE-1,Wire Rods,Bokaro,Mumbai,5,2025-10-13T05:42:59Z,225000
+RAKE-2,Wheels and Axles,Bokaro,Mumbai,4,2025-10-13T07:12:59Z,150000
+RAKE-3,SAIL SeQR TMT Bars,Bokaro,Mumbai,5,2025-10-13T08:42:59Z,225000
+RAKE-4,SAIL TMT BARS,Bokaro,Mumbai,5,2025-10-13T10:12:59Z,225000
