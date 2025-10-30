@@ -8697,13 +8697,16 @@ httpServer.on('error', err => {
   }
 });
 
-// Only auto-start server outside test environment so integration tests can control listen lifecycle
-if (process.env.NODE_ENV !== 'test' && process.env.TEST !== '1') {
+// Only auto-start server outside test environment and Vercel production
+if (process.env.NODE_ENV !== 'test' && process.env.TEST !== '1' && !process.env.VERCEL) {
   startServer(currentPort);
 }
 
 // Export for test harness usage
 export { app, httpServer };
+
+// Vercel serverless function handler
+export default app;
 
 // Heartbeat log (unref so it doesn't keep process alive if something else ends it)
 setInterval(() => {
